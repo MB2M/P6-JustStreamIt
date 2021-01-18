@@ -7,6 +7,33 @@
 
 </head>
 <body>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+          <span class="modal-content__close">&times;</span>
+          <div class="modal-content__text">
+              <div class="modal-content__img">
+                <img id="modal__img" src=""/>
+              </div>
+              <div class="modal-content__data">
+                  <h1 id="modal__title"></h1>
+                  <div><b>Genres:</b> <span id="modal__genres"></span></div>
+                  <div><b>Published:</b> <span id="modal__date_published"></span></div>
+                  <div><b>Rating: </b><span id="modal__rated"></span></div>
+                  <div><b>IMDB score: </b><span id="modal__imdb_score"></span></div>
+                  <div><b>Directors:</b> <span id="modal__directors"></span></div>
+                  <div><b>Actors: </b><span id="modal__actors"></span></div>
+                  <div><b>Duration: </b><span id="modal__duration"></span> mins</div>
+                  <div><b>Countries: </b><span id="modal__countries"></span></div>
+                  <div><b>Box office: </b><span id="modal__reviews_from_critics"></span></div>
+                  <div><b>Description: </b><span id="modal__description"></span></div>
+              </div>
+          </div>
+      </div>
+
+    </div>
     <div class="header">
         <div class="header__heading">
             <h1>JustStreamIt</h1>
@@ -20,76 +47,77 @@
             </div>
         </div>
     </div>
-    <div class="best-film">
-        <div class="best-film__heading">
-            <h1 id="number-one-title"></h1>
-            <p id="number-one-description" class="best-film__description"></p>
+    <div class="container">
+        <div class="best-film">
+            <div class="best-film__heading">
+                <h1 id="number-one__title"></h1>
+                <p id="number-one__description" class="best-film__description"></p>
+            </div>
+            <div class="best-film__img">
+                <img id="number-one__img" src="" alt="">
+            </div>
         </div>
-        <div class="best-film__img">
-            <img id="number-one-img" src="" alt="">
+        <div class="top-films">
+            <div class="top-films__heading">
+                <h1>Films les mieux notés</h1>
+            </div>
+            <div class="carousel">
+                <div class="carousel__arrow">
+                    <img src="./public/img/left-arrow.png" alt="">
+                </div>
+                <div id="top-film__carousel" class="carousel-inner">
+                </div>
+                <div class="carousel__arrow">
+                    <img src="./public/img/right-arrow.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="top-films__heading">
+                <h1>Top film of category <span id="category-1__title">Thriller</span> :</h1>
+            </div>
+            <div class="carousel">
+                <div class="carousel__arrow">
+                    <img src="./public/img/left-arrow.png" alt="">
+                </div>
+                <div id="category1__carousel" class="carousel-inner">
+                </div>
+                <div class="carousel__arrow">
+                    <img src="./public/img/right-arrow.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="category__heading">
+                <h1>Top film of category <span id="category-2__title">Action</span> :</h1>
+            </div>
+            <div class="carousel">
+                <div class="carousel__arrow">
+                    <img src="./public/img/left-arrow.png" alt="">
+                </div>
+                <div id="category2__carousel" class="carousel-inner">
+                </div>
+                <div class="carousel__arrow">
+                    <img src="./public/img/right-arrow.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="category">
+            <div class="category__heading">
+                <h1>Top film of category <span id="category-3__title">Comedy</span> :</h1>
+            </div>
+            <div class="carousel">
+                <div class="carousel__arrow">
+                    <img src="./public/img/left-arrow.png" alt="">
+                </div>
+                <div id="category3__carousel" class="carousel-inner">
+                </div>
+                <div class="carousel__arrow">
+                    <img src="./public/img/right-arrow.png" alt="">
+                </div>
+            </div>
         </div>
     </div>
-    <div class="top-films">
-        <div class="top-films__heading">
-            <h1>Films les mieux notés</h1>
-        </div>
-        <div class="carousel">
-            <div class="carousel__arrow">
-                <img src="./public/img/left-arrow.png" alt="">
-            </div>
-            <div id="top-film__carousel" class="carousel-inner">
-            </div>
-            <div class="carousel__arrow">
-                <img src="./public/img/right-arrow.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="category">
-        <div class="top-films__heading">
-            <h1>Top film of category <span id="category-1__title">Thriller</span> :</h1>
-        </div>
-        <div class="carousel">
-            <div class="carousel__arrow">
-                <img src="./public/img/left-arrow.png" alt="">
-            </div>
-            <div id="category1__carousel" class="carousel-inner">
-            </div>
-            <div class="carousel__arrow">
-                <img src="./public/img/right-arrow.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="category">
-        <div class="category__heading">
-            <h1>Top film of category <span id="category-2__title">Action</span> :</h1>
-        </div>
-        <div class="carousel">
-            <div class="carousel__arrow">
-                <img src="./public/img/left-arrow.png" alt="">
-            </div>
-            <div id="category2__carousel" class="carousel-inner">
-            </div>
-            <div class="carousel__arrow">
-                <img src="./public/img/right-arrow.png" alt="">
-            </div>
-        </div>
-    </div>
-    <div class="category">
-        <div class="category__heading">
-            <h1>Top film of category <span id="category-3__title">Comedy</span> :</h1>
-        </div>
-        <div class="carousel">
-            <div class="carousel__arrow">
-                <img src="./public/img/left-arrow.png" alt="">
-            </div>
-            <div id="category3__carousel" class="carousel-inner">
-            </div>
-            <div class="carousel__arrow">
-                <img src="./public/img/right-arrow.png" alt="">
-            </div>
-        </div>
-    </div>
-
 </body>
 <script src="./public/js/main.js" type="text/javascript"></script>
 </html>
