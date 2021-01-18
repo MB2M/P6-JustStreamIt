@@ -8,7 +8,7 @@ function getFilmInfo2(id, pre) {
             document.getElementById(pre + '__title').innerHTML = json.title;
             document.getElementById(pre + '__img').setAttribute('src',json.image_url);
             document.getElementById(pre + '__description').innerHTML = json.long_description;
-            if ("pre" == "modal"){
+            if (pre == "modal"){
                 document.getElementById(pre + '__genres').innerHTML = json.genres;
                 document.getElementById(pre + '__date_published').innerHTML = json.date_published;
                 document.getElementById(pre + '__rated').innerHTML = json.rated;
@@ -30,7 +30,6 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
                 for (film of json.results){
                     films.push([film.id, film.image_url])
                 }
-                console.log(films)
                 if (top-5 > 0){
                     filmTop2(top-5, json.next, category, slice_start, slice_end, films);
                     return []
@@ -38,17 +37,26 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
                 return films;
             })
             .then(films => {
-                console.log(films);
                 if (films.length > 0){
                     let all_img_HTML = "";
                     for (film of films.slice(slice_start, slice_end)) {
-                        const img_HTML = "<a href=\"#\"><img id=\"" + film[0] + "\" src=\"" + film[1] + "\" class=\"carousel__img\"></img></a>";
-                        all_img_HTML = all_img_HTML + img_HTML;
-                        document.getElementById(category + "__carousel").innerHTML = all_img_HTML;
+                        var img = document.createElement("img");
+                        img.id = film[0];
+                        img.src = film[1];
+                        img.className = "carousel__img";
+
+                        var link = document.createElement("a");
+                        link.href="#";
+                        link.appendChild(img);
+
+                        var carousel = document.getElementById(category + "__carousel");
+                        carousel.appendChild(link);
+
+                        if (carousel.childNodes.length >= 6) {
+                            link.style.display = "none"
+                        }
                     }
-                    console.log(films[0][0]);
                     if (category == "top-film"){
-                        console.log(films[0][0]);
                         getFilmInfo2(films[0][0], 'number-one');
                     }
                     // When the user clicks on the image, open the modal
@@ -58,6 +66,7 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
                             getFilmInfo2(this.id, 'modal')
                         }
                     }
+
                 }
             })
 }
@@ -91,3 +100,32 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+const moveLeft = (element) =>{
+    arrow.onclick =  () => {
+        var images = this.parentElement.getElementsByClassName('carousel__img');
+        images[0].parentElement.style.display = "none";
+        images[0].parentElement.parentElement.appendChild(images[0].parentElement);
+        images[3].parentElement.style.display = "inline";
+    }
+}
+
+for (arrow of document.getElementsByClassName("carousel__arrow-left")) {
+    arrow.onclick = function () {
+        var images = this.parentElement.getElementsByClassName('carousel__img');
+        images[0].parentElement.style.display = "none";
+        images[0].parentElement.parentElement.append(images[0].parentElement);
+        images[3].parentElement.style.display = "inline";
+    }
+}
+
+for (arrow of document.getElementsByClassName("carousel__arrow-right")) {
+    arrow.onclick =  function(){
+        var images = this.parentElement.getElementsByClassName('carousel__img');
+        images[3].parentElement.style.display = "none";
+        images[images.length - 1].parentElement.parentElement.prepend(images[images.length - 1].parentElement);
+        images[0].parentElement.style.display = "inline";
+    }
+}
+
+
