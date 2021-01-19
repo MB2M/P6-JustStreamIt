@@ -8,6 +8,9 @@ function getFilmInfo2(id, pre) {
             document.getElementById(pre + '__title').innerHTML = json.title;
             document.getElementById(pre + '__img').setAttribute('src',json.image_url);
             document.getElementById(pre + '__description').innerHTML = json.long_description;
+            if (pre == "number-one"){
+                document.getElementById(pre + '-show').id = json.id;
+            }
             if (pre == "modal"){
                 document.getElementById(pre + '__genres').innerHTML = json.genres;
                 document.getElementById(pre + '__date_published').innerHTML = json.date_published;
@@ -71,16 +74,13 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
             })
 }
 
+var topButton = document.getElementById("number-one-show");
+topButton.onclick = function() {
+    modal.style.display = "block";
+    getFilmInfo2(this.id, 'modal')
+}
 
 
-
-const cat1 =  document.getElementById('category-1__title').textContent;
-const cat2 =  document.getElementById('category-2__title').textContent;
-const cat3 =  document.getElementById('category-3__title').textContent;
-filmTop2(10, api_url + "?sort_by=-imdb_score", 'top-film',1 ,8);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat1, 'category1', 0 , 7);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat2, 'category2', 0 , 7);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat3, 'category3', 0, 7);
 
 
 // Get the modal
@@ -101,15 +101,16 @@ window.onclick = function(event) {
   }
 }
 
-const moveLeft = (element) =>{
-    arrow.onclick =  () => {
-        var images = this.parentElement.getElementsByClassName('carousel__img');
-        images[0].parentElement.style.display = "none";
-        images[0].parentElement.parentElement.appendChild(images[0].parentElement);
-        images[3].parentElement.style.display = "inline";
-    }
-}
+const cat1 =  document.getElementById('category-1__title').textContent;
+const cat2 =  document.getElementById('category-2__title').textContent;
+const cat3 =  document.getElementById('category-3__title').textContent;
+filmTop2(10, api_url + "?sort_by=-imdb_score", 'top-film',1 ,8);
+filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat1, 'category1', 0 , 7);
+filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat2, 'category2', 0 , 7);
+filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat3, 'category3', 0, 7);
 
+
+// move carousel to the left
 for (arrow of document.getElementsByClassName("carousel__arrow-left")) {
     arrow.onclick = function () {
         var images = this.parentElement.getElementsByClassName('carousel__img');
@@ -119,6 +120,7 @@ for (arrow of document.getElementsByClassName("carousel__arrow-left")) {
     }
 }
 
+// move carousel to the right
 for (arrow of document.getElementsByClassName("carousel__arrow-right")) {
     arrow.onclick =  function(){
         var images = this.parentElement.getElementsByClassName('carousel__img');
