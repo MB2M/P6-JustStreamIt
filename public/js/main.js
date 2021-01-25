@@ -25,53 +25,52 @@ function getFilmInfo2(id, pre) {
         })
 }
 
-
 function filmTop2(top, url, category, slice_start, slice_end, films = []) {
-        fetch(url)
-            .then(response => response.json())
-            .then(json => {
-                for (film of json.results){
-                    films.push([film.id, film.image_url])
-                }
-                if (top-5 > 0){
-                    filmTop2(top-5, json.next, category, slice_start, slice_end, films);
-                    return []
-                }
-                return films;
-            })
-            .then(films => {
-                if (films.length > 0){
-                    let all_img_HTML = "";
-                    for (film of films.slice(slice_start, slice_end)) {
-                        var img = document.createElement("img");
-                        img.id = film[0];
-                        img.src = film[1];
-                        img.className = "carousel__img";
+    fetch(url)
+        .then(response => response.json())
+        .then(json => {
+            for (film of json.results){
+                films.push([film.id, film.image_url])
+            }
+            if (top-5 > 0){
+                filmTop2(top-5, json.next, category, slice_start, slice_end, films);
+                return []
+            }
+            return films;
+        })
+        .then(films => {
+            if (films.length > 0){
+                let all_img_HTML = "";
+                for (film of films.slice(slice_start, slice_end)) {
+                    var img = document.createElement("img");
+                    img.id = film[0];
+                    img.src = film[1];
+                    img.className = "carousel__img";
 
-                        var link = document.createElement("a");
-                        link.href="#";
-                        link.appendChild(img);
+                    var link = document.createElement("a");
+                    link.href="#";
+                    link.appendChild(img);
 
-                        var carousel = document.getElementById(category + "__carousel");
-                        carousel.appendChild(link);
+                    var carousel = document.getElementById(category + "__carousel");
+                    carousel.appendChild(link);
 
-                        if (carousel.childNodes.length >= 6) {
-                            link.style.display = "none"
-                        }
+                    if (carousel.childNodes.length >= 6) {
+                        link.style.display = "none"
                     }
-                    if (category == "top-film"){
-                        getFilmInfo2(films[0][0], 'number-one');
-                    }
-                    // When the user clicks on the image, open the modal
-                    for (var i = 0; i < document.getElementsByClassName("carousel__img").length; i++){
-                        document.getElementsByClassName("carousel__img")[i].onclick = function() {
-                            modal.style.display = "block";
-                            getFilmInfo2(this.id, 'modal')
-                        }
-                    }
-
                 }
-            })
+                if (category == "top-film"){
+                    getFilmInfo2(films[0][0], 'number-one');
+                }
+                // When the user clicks on the image, open the modal
+                for (var i = 0; i < document.getElementsByClassName("carousel__img").length; i++){
+                    document.getElementsByClassName("carousel__img")[i].onclick = function() {
+                        modal.style.display = "block";
+                        getFilmInfo2(this.id, 'modal')
+                    }
+                }
+
+            }
+        })
 }
 
 var topButton = document.getElementById("number-one-show");
