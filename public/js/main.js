@@ -1,7 +1,7 @@
 var api_url =  "http://localhost:8000/api/v1/titles/"
 
 
-function getFilmInfo2(id, pre) {
+function getFilmInfo(id, pre) {
     fetch(api_url + id)
         .then(response => response.json())
         .then(json => {
@@ -25,15 +25,15 @@ function getFilmInfo2(id, pre) {
         })
 }
 
-function filmTop2(top, url, category, slice_start, slice_end, films = []) {
+function filmTop(top, url, category, slice_start, slice_end, films = []) {
     fetch(url)
         .then(response => response.json())
         .then(json => {
             for (film of json.results){
                 films.push([film.id, film.image_url])
             }
-            if (top-5 > 0){
-                filmTop2(top-5, json.next, category, slice_start, slice_end, films);
+            if (top - 5 > 0){
+                filmTop(top - 5, json.next, category, slice_start, slice_end, films);
                 return []
             }
             return films;
@@ -59,13 +59,13 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
                     }
                 }
                 if (category == "top-film"){
-                    getFilmInfo2(films[0][0], 'number-one');
+                    getFilmInfo(films[0][0], 'number-one');
                 }
                 // When the user clicks on the image, open the modal
                 for (var i = 0; i < document.getElementsByClassName("carousel__img").length; i++){
                     document.getElementsByClassName("carousel__img")[i].onclick = function() {
                         modal.style.display = "block";
-                        getFilmInfo2(this.id, 'modal')
+                        getFilmInfo(this.id, 'modal')
                     }
                 }
 
@@ -76,10 +76,8 @@ function filmTop2(top, url, category, slice_start, slice_end, films = []) {
 var topButton = document.getElementById("number-one-show");
 topButton.onclick = function() {
     modal.style.display = "block";
-    getFilmInfo2(this.id, 'modal')
+    getFilmInfo(this.id, 'modal')
 }
-
-
 
 
 // Get the modal
@@ -103,10 +101,10 @@ window.onclick = function(event) {
 const cat1 =  document.getElementById('category-1__title').textContent;
 const cat2 =  document.getElementById('category-2__title').textContent;
 const cat3 =  document.getElementById('category-3__title').textContent;
-filmTop2(10, api_url + "?sort_by=-imdb_score", 'top-film',1 ,8);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat1, 'category1', 0 , 7);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat2, 'category2', 0 , 7);
-filmTop2(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat3, 'category3', 0, 7);
+filmTop(10, api_url + "?sort_by=-imdb_score", 'top-film',1 ,8);
+filmTop(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat1, 'category1', 0 , 7);
+filmTop(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat2, 'category2', 0 , 7);
+filmTop(10, api_url + "?sort_by=-imdb_score&genre_contains=" + cat3, 'category3', 0, 7);
 
 
 // move carousel to the left
